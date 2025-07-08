@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>AutoSpot Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background: var(--tg-theme-header-bg-color, #667eea);
+            color: white;
+            padding: 16px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        iframe {
+            width: 100%;
+            height: calc(100vh - 70px);
+            border: none;
+            display: block;
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--tg-theme-hint-color, #999);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚗 AutoSpot</h1>
+    </div>
+    
+    <div class="loading" id="loading">
+        <div>Загрузка...</div>
+    </div>
+    
+    <iframe 
+        id="autospot-frame" 
+        src="https://autospot.ru"
+        onload="document.getElementById('loading').style.display='none'"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-navigation">
+    </iframe>
+    
+    <script>
+        // Инициализация Telegram Web App
+        if (window.Telegram && window.Telegram.WebApp) {
+            const tg = window.Telegram.WebApp;
+            
+            // Готовность приложения
+            tg.ready();
+            
+            // Расширение на весь экран
+            tg.expand();
+            
+            // Применение цветовой схемы Telegram
+            if (tg.colorScheme === 'dark') {
+                document.documentElement.style.setProperty('--tg-theme-bg-color', '#1c1c1e');
+                document.documentElement.style.setProperty('--tg-theme-text-color', '#ffffff');
+            }
+            
+            // Скрытие главной кнопки (если не нужна)
+            tg.MainButton.hide();
+            
+            console.log('Telegram WebApp initialized');
+        }
+        
+        // Обработка ошибок загрузки iframe
+        document.getElementById('autospot-frame').onerror = function() {
+            document.getElementById('loading').innerHTML = 'Ошибка загрузки сайта';
+        };
+    </script>
+</body>
+</html>
