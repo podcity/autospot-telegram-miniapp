@@ -1,0 +1,1 @@
+# autospot-telegram-miniapp
