@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chery - Подбор автомобиля</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header>
+            <div class="logo">
+                <img src="https://www.chery.ru/logo.svg" alt="Chery">
+                <span>Официальный дилер</span>
+            </div>
+            <div class="user-info">
+                <span id="userName">Загрузка...</span>
+            </div>
+        </header>
+
+        <!-- Главный экран -->
+        <main id="mainScreen">
+            <div class="hero">
+                <h1>Найдите свой идеальный Chery</h1>
+                <p>Ответьте на несколько вопросов и мы подберем автомобиль под ваши потребности</p>
+                <button class="btn-primary" onclick="startQuiz()">
+                    🚗 Начать подбор
+                </button>
+            </div>
+
+            <!-- Каталог моделей -->
+            <div class="models-grid" id="modelsGrid">
+                <!-- Заполняется через JS -->
+            </div>
+        </main>
+
+        <!-- Экран чата -->
+        <div id="chatScreen" class="hidden">
+            <div class="chat-header">
+                <button onclick="backToMain()">← Назад</button>
+                <h2>AI Консультант</h2>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="avatar">🤖</div>
+                    <div class="text">
+                        Здравствуйте! Я помогу вам выбрать идеальный автомобиль Chery.
+                        Расскажите, для каких целей вам нужен автомобиль?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Напишите сообщение...">
+                <button onclick="sendMessage()">Отправить</button>
+            </div>
+        </div>
+
+        <!-- Форма заявки -->
+        <div id="leadForm" class="modal hidden">
+            <div class="modal-content">
+                <h2>Оставьте заявку</h2>
+                <p>Мы свяжемся с вами в течение 15 минут</p>
+                
+                <form onsubmit="submitLead(event)">
+                    <input type="text" name="name" placeholder="Ваше имя" required>
+                    <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
+                    <input type="email" name="email" placeholder="Email (необязательно)">
+                    
+                    <select name="model" required>
+                        <option value="">Выберите модель</option>
+                        <option value="tiggo4pro">Tiggo 4 Pro</option>
+                        <option value="tiggo7promax">Tiggo 7 Pro Max</option>
+                        <option value="tiggo8promax">Tiggo 8 Pro Max</option>
+                        <option value="arrizo8">Arrizo 8</option>
+                        <option value="tiggo9">Tiggo 9</option>
+                    </select>
+                    
+                    <textarea name="comment" placeholder="Комментарий (необязательно)"></textarea>
+                    
+                    <button type="submit" class="btn-primary">Отправить заявку</button>
+                    <button type="button" onclick="closeModal()">Отмена</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Кредитный калькулятор -->
+        <div id="calculator" class="calculator hidden">
+            <h2>Кредитный калькулятор</h2>
+            <div class="calc-inputs">
+                <label>
+                    Стоимость автомобиля:
+                    <input type="number" id="carPrice" value="2000000" onchange="calculateCredit()">
+                </label>
+                
+                <label>
+                    Первоначальный взнос (%)
+                    <input type="range" id="downPayment" min="0" max="50" value="20" onchange="calculateCredit()">
+                    <span id="downPaymentValue">20%</span>
+                </label>
+                
+                <label>
+                    Срок кредита (лет):
+                    <input type="range" id="creditTerm" min="1" max="7" value="5" onchange="calculateCredit()">
+                    <span id="creditTermValue">5 лет</span>
+                </label>
+                
+                <div class="calc-result">
+                    <h3>Ежемесячный платеж:</h3>
+                    <div class="payment-amount" id="monthlyPayment">35 000 ₽</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
