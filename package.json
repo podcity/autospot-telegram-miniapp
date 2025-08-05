@@ -1,0 +1,25 @@
+{
+  "name": "chery-telegram-miniapp",
+  "version": "1.0.0",
+  "description": "Telegram Mini App для продажи автомобилей Chery с AI консультантом",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js",
+    "server": "node server.js"
+  },
+  "dependencies": {
+    "telegraf": "^4.15.3",
+    "express": "^4.18.2",
+    "dotenv": "^16.3.1",
+    "@anthropic-ai/sdk": "^0.24.0",
+    "nodemailer": "^6.9.7",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "body-parser": "^1.20.2",
+    "axios": "^1.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
